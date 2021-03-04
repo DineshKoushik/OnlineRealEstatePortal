@@ -9,26 +9,28 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.au.project.model.details;
-import com.au.project.repositories.DetailsRepository;
+import com.au.project.model.User;
+import com.au.project.service.UserService;
 
 @RestController
 @RequestMapping("/user")
-public class DetailsController {
+public class UserController {
 
 	@Autowired
-	public DetailsRepository detailsrepo;
+	UserService userService;
 
 	@GetMapping(value = "/all")
-	public List<details> getAllDetails() {
-		return detailsrepo.findAll();
+	public List<User> getAllDetails() {
+		return userService.getAllDetails();
 	}
 
 	@PostMapping(value = "/create")
-	public String createUser(@RequestBody details d) {
-		
-		details newd = detailsrepo.insert(d);
-		return "User Created With Name " + newd.getName();
+	public String createUser(@RequestBody User d) {
+		return userService.CreateUser(d);
 	}
 
+	@GetMapping(value = "/example")
+	public List<User> getAllByExample(@RequestBody User user){
+		return userService.getAllByExample(user);
+	}
 }

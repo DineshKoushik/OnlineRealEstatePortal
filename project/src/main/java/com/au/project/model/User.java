@@ -2,16 +2,18 @@ package com.au.project.model;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.SequenceGenerator;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "details")
-public class details {
+public class User {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "myseq")
+	@SequenceGenerator(name = "myseq", sequenceName = "MY_SEQ")
+	private String id;
 	private String name;
 	private String email;
 	private String password;
@@ -20,7 +22,7 @@ public class details {
 	private Long budget;
 	private Long cost;
 	private Long numberOfAcres;
-	private String PropertyType;
+	private String propertyType;
 	private String location;
 
 	public String getName() {
@@ -88,11 +90,11 @@ public class details {
 	}
 
 	public String getPropertyType() {
-		return PropertyType;
+		return propertyType;
 	}
 
 	public void setPropertyType(String propertyType) {
-		PropertyType = propertyType;
+		this.propertyType = propertyType;
 	}
 
 	public String getLocation() {
@@ -103,10 +105,9 @@ public class details {
 		this.location = location;
 	}
 
-	public details(long id, String name, String email, String password, String mobileNumber, String userType,
-			Long budget, Long cost, Long numberOfAcres, String propertyType, String location) {
+	public User(String name, String email, String password, String mobileNumber, String userType, Long budget,
+			Long cost, Long numberOfAcres, String propertyType, String location) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
@@ -115,11 +116,11 @@ public class details {
 		this.budget = budget;
 		this.cost = cost;
 		this.numberOfAcres = numberOfAcres;
-		PropertyType = propertyType;
+		this.propertyType = propertyType;
 		this.location = location;
 	}
 
-	public details() {
+	public User() {
 		super();
 	}
 
