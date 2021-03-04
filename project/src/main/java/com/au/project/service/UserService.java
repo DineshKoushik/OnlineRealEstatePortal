@@ -30,4 +30,16 @@ public class UserService {
 		return userRepository.findAll(e);
 	}
 
+	public Long getCount() {
+		return userRepository.count();
+	}
+	
+	public List<User> getByName(String name) {
+		return userRepository.findByName(name);
+	}
+	
+	public List<User> getAllByCostLessThan(Long budget){
+		return userRepository.getAllByCostLessThan(budget);
+	}
+
 }
