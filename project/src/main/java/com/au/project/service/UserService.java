@@ -1,6 +1,11 @@
+
+/**
+ * This is a service class, this extends functions of repository class.
+ */
 package com.au.project.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -40,6 +45,14 @@ public class UserService {
 	
 	public List<User> getAllByCostLessThan(Long budget){
 		return userRepository.getAllByCostLessThan(budget);
+	}
+	
+	public User findByEmail(String email) {
+		return userRepository.findByEmail(email);
+	}
+
+	public Optional<User> getById(String id) {
+		return userRepository.findById(id);
 	}
 
 }

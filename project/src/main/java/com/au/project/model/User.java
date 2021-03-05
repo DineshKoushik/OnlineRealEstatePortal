@@ -1,3 +1,7 @@
+
+/**
+ * This is a model class, to initialize the entities for the project.
+ */
 package com.au.project.model;
 
 import javax.persistence.GeneratedValue;
@@ -25,6 +29,9 @@ public class User {
 	private String propertyType;
 	private String location;
 
+	public String getId() {
+		return id;
+	}
 	public String getName() {
 		return name;
 	}

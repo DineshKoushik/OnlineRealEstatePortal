@@ -1,9 +1,18 @@
+
+/**
+ *  This Class contains all Rest API Requests
+ */
+
 package com.au.project.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,33 +29,94 @@ public class UserController {
 	@Autowired
 	UserService userService;
 
-	@GetMapping(value = "/all")
-	public List<User> getAllDetails() {
-		return userService.getAllDetails();
-	}
-
+	// This is Create method for the API Request
 	@PostMapping(value = "/create")
-	public String createUser(@RequestBody User d) {
-		return userService.CreateUser(d);
+	public ResponseEntity<?> createUser(@RequestBody User d) {
+		try {
+			String s = userService.CreateUser(d);
+			return new ResponseEntity<String>(s, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
-	@GetMapping(value = "/example")
-	public List<User> getAllByExample(@RequestBody User user){
-		return userService.getAllByExample(user);
+	// This is Get All method for the API Request
+	@GetMapping(value = "/all")
+	public ResponseEntity<?> getAllDetails() {
+		List<User> user = userService.getAllDetails();
+		if (user.size() > 0) {
+			return new ResponseEntity<List<User>>(user, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("No User Avaialable!", HttpStatus.NOT_FOUND);
+		}
 	}
-	
-	@GetMapping(value = "/count")
-	public Long getCount() {
-		return userService.getCount();
+
+	// This is GetById method for the API Request
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<?> getById(@PathVariable("id") String id) {
+		Optional<User> u = userService.getById(id);
+		if (u.isPresent()) {
+			return new ResponseEntity<User>(u.get(), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("No User avaialable with id " + id, HttpStatus.NOT_FOUND);
+		}
 	}
-	
+
+	// This is GetByName method for the API Request
 	@GetMapping(value = "/name")
-	public List<User> getByName(@RequestParam(name = "name") String name) {
-		return userService.getByName(name);
+	public ResponseEntity<?> getByName(@RequestParam(name = "name") String name) {
+		List<User> u = userService.getByName(name);
+		if (u.size() > 0) {
+			return new ResponseEntity<List<User>>(u, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("No User avaialable with name " + name, HttpStatus.NOT_FOUND);
+		}
 	}
-	
+
+	// This is GetByEmail method for the API Request
+	@GetMapping(value = "/email")
+	public ResponseEntity<?> findByEmail(@RequestParam(name = "email") String email) {
+		User u = userService.findByEmail(email);
+		if (u != null) {
+			return new ResponseEntity<User>(u, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("No User avaialable with email " + email, HttpStatus.NOT_FOUND);
+		}
+	}
+
+	// This is Generic Method for the API Request
+	@GetMapping(value = "/example")
+	public ResponseEntity<?> getAllByExample(@RequestBody User user) {
+		List<User> u = userService.getAllByExample(user);
+		if (u.size() > 0) {
+			return new ResponseEntity<List<User>>(u, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("No User avaialable!", HttpStatus.NOT_FOUND);
+		}
+	}
+
+	// This is Get Count method for the API Request
+	@GetMapping(value = "/count")
+	public ResponseEntity<?> getCount() {
+		Long num = userService.getCount();
+		if (num != 0) {
+			return new ResponseEntity<Long>(num, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("Users list is empty", HttpStatus.NOT_FOUND);
+		}
+	}
+
+	// This method fetches the details which has cost less than or equal to the
+	// budget.
 	@GetMapping(value = "/budget")
-	public List<User> getAllByCostLessThan(@RequestParam(name = "budget") Long budget) {
-		return userService.getAllByCostLessThan(budget);
+	public ResponseEntity<?> getAllByCostLessThan(@RequestParam(name = "budget") Long budget) {
+		List<User> u = userService.getAllByCostLessThan(budget);
+		if (u.size() > 0) {
+			return new ResponseEntity<List<User>>(u, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>("No User avaialable with budget less than equal to " + budget,
+					HttpStatus.NOT_FOUND);
+		}
 	}
+
 }
