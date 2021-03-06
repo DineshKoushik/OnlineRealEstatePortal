@@ -7,31 +7,45 @@ package com.au.project.model;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "details")
+@Document(collection = "User")
 public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "myseq")
 	@SequenceGenerator(name = "myseq", sequenceName = "MY_SEQ")
-	private String id;
+	private String userId;
+	@NotNull(message = "Name cannot be null")
 	private String name;
+	@NotNull(message = "Email cannot be null")
 	private String email;
+	@NotNull(message = "Password cannot be null")
 	private String password;
 	private String mobileNumber;
-	private String userType;
-	private Long budget;
-	private Long cost;
-	private Long numberOfAcres;
-	private String propertyType;
-	private String location;
+	@NotNull(message = "UserType cannot be null")
+	private String userType;  // Buyer/Owner, Agent, Builder 
+
+	public User() {
+		super();
+	}
+
+	public User(String name, String email, String password, String mobileNumber, String userType) {
+		super();
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.mobileNumber = mobileNumber;
+		this.userType = userType;
+	}
 
 	public String getId() {
-		return id;
+		return userId;
 	}
+
 	public String getName() {
 		return name;
 	}
@@ -70,65 +84,6 @@ public class User {
 
 	public void setUserType(String userType) {
 		this.userType = userType;
-	}
-
-	public Long getBudget() {
-		return budget;
-	}
-
-	public void setBudget(Long budget) {
-		this.budget = budget;
-	}
-
-	public Long getCost() {
-		return cost;
-	}
-
-	public void setCost(Long cost) {
-		this.cost = cost;
-	}
-
-	public Long getNumberOfAcres() {
-		return numberOfAcres;
-	}
-
-	public void setNumberOfAcres(Long numberOfAcres) {
-		this.numberOfAcres = numberOfAcres;
-	}
-
-	public String getPropertyType() {
-		return propertyType;
-	}
-
-	public void setPropertyType(String propertyType) {
-		this.propertyType = propertyType;
-	}
-
-	public String getLocation() {
-		return location;
-	}
-
-	public void setLocation(String location) {
-		this.location = location;
-	}
-
-	public User(String name, String email, String password, String mobileNumber, String userType, Long budget,
-			Long cost, Long numberOfAcres, String propertyType, String location) {
-		super();
-		this.name = name;
-		this.email = email;
-		this.password = password;
-		this.mobileNumber = mobileNumber;
-		this.userType = userType;
-		this.budget = budget;
-		this.cost = cost;
-		this.numberOfAcres = numberOfAcres;
-		this.propertyType = propertyType;
-		this.location = location;
-	}
-
-	public User() {
-		super();
 	}
 
 }

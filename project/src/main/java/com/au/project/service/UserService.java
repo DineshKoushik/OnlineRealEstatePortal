@@ -12,7 +12,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import com.au.project.model.User;
-import com.au.project.repositories.UserRepository;
+import com.au.project.user.repository.UserRepository;
 
 @Service
 public class UserService {
@@ -38,15 +38,11 @@ public class UserService {
 	public Long getCount() {
 		return userRepository.count();
 	}
-	
+
 	public List<User> getByName(String name) {
 		return userRepository.findByName(name);
 	}
-	
-	public List<User> getAllByCostLessThan(Long budget){
-		return userRepository.getAllByCostLessThan(budget);
-	}
-	
+
 	public User findByEmail(String email) {
 		return userRepository.findByEmail(email);
 	}

@@ -41,7 +41,7 @@ public class UserController {
 	}
 
 	// This is Get All method for the API Request
-	@GetMapping(value = "/all")
+	@GetMapping(value = "/get/all")
 	public ResponseEntity<?> getAllDetails() {
 		List<User> user = userService.getAllDetails();
 		if (user.size() > 0) {
@@ -85,7 +85,7 @@ public class UserController {
 	}
 
 	// This is Generic Method for the API Request
-	@GetMapping(value = "/example")
+	@GetMapping(value = "/get/Byexample")
 	public ResponseEntity<?> getAllByExample(@RequestBody User user) {
 		List<User> u = userService.getAllByExample(user);
 		if (u.size() > 0) {
@@ -96,26 +96,13 @@ public class UserController {
 	}
 
 	// This is Get Count method for the API Request
-	@GetMapping(value = "/count")
+	@GetMapping(value = "/get/count")
 	public ResponseEntity<?> getCount() {
 		Long num = userService.getCount();
 		if (num != 0) {
 			return new ResponseEntity<Long>(num, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>("Users list is empty", HttpStatus.NOT_FOUND);
-		}
-	}
-
-	// This method fetches the details which has cost less than or equal to the
-	// budget.
-	@GetMapping(value = "/budget")
-	public ResponseEntity<?> getAllByCostLessThan(@RequestParam(name = "budget") Long budget) {
-		List<User> u = userService.getAllByCostLessThan(budget);
-		if (u.size() > 0) {
-			return new ResponseEntity<List<User>>(u, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>("No User avaialable with budget less than equal to " + budget,
-					HttpStatus.NOT_FOUND);
 		}
 	}
 
