@@ -8,6 +8,9 @@ package com.au.project.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +34,7 @@ public class UserController {
 
 	// This is Create method for the API Request
 	@PostMapping(value = "/create")
-	public ResponseEntity<?> createUser(@RequestBody User d) {
+	public ResponseEntity<?> createUser(@Valid @NotNull @RequestBody User d) {
 		try {
 			String s = userService.CreateUser(d);
 			return new ResponseEntity<String>(s, HttpStatus.OK);
@@ -41,7 +44,7 @@ public class UserController {
 	}
 
 	// This is Get All method for the API Request
-	@GetMapping(value = "/get/all")
+	@GetMapping(value = "/get")
 	public ResponseEntity<?> getAllDetails() {
 		List<User> user = userService.getAllDetails();
 		if (user.size() > 0) {
@@ -52,7 +55,7 @@ public class UserController {
 	}
 
 	// This is GetById method for the API Request
-	@GetMapping(value = "/{id}")
+	@GetMapping(value = "/get/{id}")
 	public ResponseEntity<?> getById(@PathVariable("id") String id) {
 		Optional<User> u = userService.getById(id);
 		if (u.isPresent()) {
@@ -63,7 +66,7 @@ public class UserController {
 	}
 
 	// This is GetByName method for the API Request
-	@GetMapping(value = "/name")
+	@GetMapping(value = "/get/name")
 	public ResponseEntity<?> getByName(@RequestParam(name = "name") String name) {
 		List<User> u = userService.getByName(name);
 		if (u.size() > 0) {
@@ -74,7 +77,7 @@ public class UserController {
 	}
 
 	// This is GetByEmail method for the API Request
-	@GetMapping(value = "/email")
+	@GetMapping(value = "/get/email")
 	public ResponseEntity<?> findByEmail(@RequestParam(name = "email") String email) {
 		User u = userService.findByEmail(email);
 		if (u != null) {

@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -20,11 +21,15 @@ public class User {
 	@SequenceGenerator(name = "myseq", sequenceName = "MY_SEQ")
 	private String userId;
 	@NotNull(message = "Name cannot be null")
+	@Size(min = 3, max = 40)
 	private String name;
 	@NotNull(message = "Email cannot be null")
+	@Size(min = 3, max = 40)
 	private String email;
 	@NotNull(message = "Password cannot be null")
+	@Size(min = 8)
 	private String password;
+	@Size(min = 10, max = 10)
 	private String mobileNumber;
 	@NotNull(message = "UserType cannot be null")
 	private String userType;  // Buyer/Owner, Agent, Builder 

@@ -20,23 +20,18 @@ public class UserService {
 	@Autowired
 	UserRepository userRepository;
 
-	public List<User> getAllDetails() {
-		return userRepository.findAll();
-	}
-
 	public String CreateUser(User d) {
 
 		User newd = userRepository.insert(d);
 		return "User Created With Name " + newd.getName();
 	}
 
-	public List<User> getAllByExample(User user) {
-		Example<User> e = Example.of(user);
-		return userRepository.findAll(e);
+	public List<User> getAllDetails() {
+		return userRepository.findAll();
 	}
 
-	public Long getCount() {
-		return userRepository.count();
+	public Optional<User> getById(String id) {
+		return userRepository.findById(id);
 	}
 
 	public List<User> getByName(String name) {
@@ -47,8 +42,13 @@ public class UserService {
 		return userRepository.findByEmail(email);
 	}
 
-	public Optional<User> getById(String id) {
-		return userRepository.findById(id);
+	public List<User> getAllByExample(User user) {
+		Example<User> e = Example.of(user);
+		return userRepository.findAll(e);
+	}
+
+	public Long getCount() {
+		return userRepository.count();
 	}
 
 }
