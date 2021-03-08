@@ -5,8 +5,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.au.project.property.repository.PropertyRepository;
-import com.au.project.user.repository.UserRepository;
+import com.au.project.Repository.BuyerRepository;
+import com.au.project.Repository.PropertyRepository;
+import com.au.project.Repository.UserRepository;
+
 
 @SpringBootApplication
 public class ProjectApplication implements CommandLineRunner{
@@ -16,7 +18,10 @@ public class ProjectApplication implements CommandLineRunner{
 	
 	@Autowired
 	PropertyRepository propertyRepository;
-
+	
+	@Autowired
+	BuyerRepository buyerRepository;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(ProjectApplication.class, args);
 	}

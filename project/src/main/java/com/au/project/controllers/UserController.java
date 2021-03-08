@@ -43,6 +43,16 @@ public class UserController {
 		}
 	}
 
+	// Login Method
+	@PostMapping(value = "/login")
+	public ResponseEntity<?> checkUser(@RequestBody User user) {
+		List<User> tempUser = userService.checkUser(user);
+		if (tempUser != null) {
+			return new ResponseEntity<List<User>>(tempUser, HttpStatus.OK);
+		}
+		return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+	}
+
 	// This is Get All method for the API Request
 	@GetMapping(value = "/get")
 	public ResponseEntity<?> getAllDetails() {

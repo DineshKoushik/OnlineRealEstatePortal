@@ -27,10 +27,11 @@ public class PropertyController {
 	PropertyService propertyService;
 
 	// This is Property post method for the API Request
-	@PostMapping(value = "/post")
-	public ResponseEntity<?> PropertyAdd(@Valid @NotNull @RequestBody Property d) {
+	@PostMapping(value = "/{id}/post")
+	public ResponseEntity<?> PropertyAdd(@PathVariable(name = "id") String id,
+			@Valid @NotNull @RequestBody Property d) {
 		try {
-			String s = propertyService.PropertyAdd(d);
+			String s = propertyService.PropertyAdd(id, d);
 			return new ResponseEntity<String>(s, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -71,10 +72,12 @@ public class PropertyController {
 			return new ResponseEntity<>("No Property avaialable in the given area!", HttpStatus.NOT_FOUND);
 		}
 	}
-	
+
 	// Search filter with (propertyType, Location, Budget range{from, to})
 	@GetMapping(value = "/get/{cost1}/{cost2}/{area}/{city}/{propertyType}")
-	public ResponseEntity<?> Search(@PathVariable("cost1") Long cost1, @PathVariable("cost2") Long cost2, @PathVariable("area") String area, @PathVariable("city") String city, @PathVariable("propertyType") String propertyType) {
+	public ResponseEntity<?> Search(@PathVariable("cost1") Long cost1, @PathVariable("cost2") Long cost2,
+			@PathVariable("area") String area, @PathVariable("city") String city,
+			@PathVariable("propertyType") String propertyType) {
 		List<Property> u = propertyService.Search(cost1, cost2, area, city, propertyType);
 		if (u.size() > 0) {
 			return new ResponseEntity<List<Property>>(u, HttpStatus.OK);

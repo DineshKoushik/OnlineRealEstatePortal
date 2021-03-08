@@ -1,40 +1,44 @@
 package com.au.project.model;
 
-import javax.validation.constraints.NotNull;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "Property")
-public class Property {
+@Document(collection = "Buyer")
+public class Buyer {
 
 	@Id
-	private String propertyId;
+	private String buyerId;
 	private String userId;
-	@NotNull(message = "propertyType cannot be null")
+	private String propertyId;
 	private String propertyType;
-	@NotNull(message = "numberOfAcres cannot be null")
 	private Long numberOfAcres;
-	@NotNull(message = "Cost cannot be null")
 	private Long cost;
 	private Location location;
 
-	public Property() {
+	public Buyer() {
 		super();
 	}
 
-	public Property(String propertyId, String propertyType,
-			@NotNull(message = "numberOfAcres cannot be null") Long numberOfAcres,
-			@NotNull(message = "Cost cannot be null") Long cost, Location location, String userId) {
+	public Buyer(String buyerId, String userId, String propertyId, String propertyType, Long numberOfAcres, Long cost,
+			Location location) {
 		super();
+		this.buyerId = buyerId;
+		this.userId = userId;
 		this.propertyId = propertyId;
 		this.propertyType = propertyType;
 		this.numberOfAcres = numberOfAcres;
 		this.cost = cost;
 		this.location = location;
-		this.userId = userId;
 	}
-	
+
+	public String getBuyerId() {
+		return buyerId;
+	}
+
+	public void setBuyerId(String buyerId) {
+		this.buyerId = buyerId;
+	}
+
 	public String getUserId() {
 		return userId;
 	}

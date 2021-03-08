@@ -12,7 +12,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import com.au.project.model.User;
-import com.au.project.user.repository.UserRepository;
+import com.au.project.Repository.UserRepository;
 
 @Service
 public class UserService {
@@ -24,6 +24,11 @@ public class UserService {
 
 		User newd = userRepository.insert(d);
 		return "User Created With Name " + newd.getName();
+	}
+	
+	public List<User> checkUser(User user) {
+		Example<User> u = Example.of(user);
+		return userRepository.findAll(u);
 	}
 
 	public List<User> getAllDetails() {

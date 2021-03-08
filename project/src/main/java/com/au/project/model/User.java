@@ -32,7 +32,7 @@ public class User {
 	@Size(min = 10, max = 10)
 	private String mobileNumber;
 	@NotNull(message = "UserType cannot be null")
-	private String userType;  // Buyer/Owner, Agent, Builder 
+	private String userType;  // Buyer/Owner, Agent, Builder
 
 	public User() {
 		super();
