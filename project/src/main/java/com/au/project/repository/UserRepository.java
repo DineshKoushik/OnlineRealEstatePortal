@@ -3,7 +3,7 @@
  * This Class is used to connect to database.
  */
 
-package com.au.project.Repository;
+package com.au.project.repository;
 
 import java.util.List;
 import java.util.Optional;

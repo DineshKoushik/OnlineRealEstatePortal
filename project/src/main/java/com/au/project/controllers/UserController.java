@@ -6,7 +6,6 @@
 package com.au.project.controllers;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -15,18 +14,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.au.project.model.Login;
 import com.au.project.model.User;
 import com.au.project.service.UserService;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserController {
 
 	@Autowired
@@ -34,10 +33,10 @@ public class UserController {
 
 	// This is Create method for the API Request
 	@PostMapping(value = "/create")
-	public ResponseEntity<?> createUser(@Valid @NotNull @RequestBody User d) {
+	public ResponseEntity<String> createUser(@Valid @NotNull @RequestBody User user) {
 		try {
-			String s = userService.CreateUser(d);
-			return new ResponseEntity<String>(s, HttpStatus.OK);
+			String s = userService.createUser(user);
+			return new ResponseEntity<>(s, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -45,78 +44,65 @@ public class UserController {
 
 	// Login Method
 	@PostMapping(value = "/login")
-	public ResponseEntity<?> checkUser(@RequestBody User user) {
-		List<User> tempUser = userService.checkUser(user);
-		if (tempUser != null) {
-			return new ResponseEntity<List<User>>(tempUser, HttpStatus.OK);
+	public ResponseEntity<Object> checkUser(@RequestBody Login login) {
+		List<User> tempUser = userService.checkUser(login);
+		if (tempUser.isEmpty()) {
+			return new ResponseEntity<>("Enter valid details", HttpStatus.NOT_FOUND);
+		} else {
+			return new ResponseEntity<>("Login Successfull!", HttpStatus.OK);
 		}
-		return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 	}
 
 	// This is Get All method for the API Request
 	@GetMapping(value = "/get")
-	public ResponseEntity<?> getAllDetails() {
+	public ResponseEntity<Object> getAllDetails() {
 		List<User> user = userService.getAllDetails();
-		if (user.size() > 0) {
-			return new ResponseEntity<List<User>>(user, HttpStatus.OK);
+		if (user.isEmpty()) {
+			return new ResponseEntity<>("No user found", HttpStatus.NOT_FOUND);
 		} else {
-			return new ResponseEntity<>("No User Avaialable!", HttpStatus.NOT_FOUND);
-		}
-	}
-
-	// This is GetById method for the API Request
-	@GetMapping(value = "/get/{id}")
-	public ResponseEntity<?> getById(@PathVariable("id") String id) {
-		Optional<User> u = userService.getById(id);
-		if (u.isPresent()) {
-			return new ResponseEntity<User>(u.get(), HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>("No User avaialable with id " + id, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(user, HttpStatus.OK);
 		}
 	}
 
 	// This is GetByName method for the API Request
 	@GetMapping(value = "/get/name")
-	public ResponseEntity<?> getByName(@RequestParam(name = "name") String name) {
+	public ResponseEntity<Object> getByName(@RequestParam(name = "name") String name) {
 		List<User> u = userService.getByName(name);
-		if (u.size() > 0) {
-			return new ResponseEntity<List<User>>(u, HttpStatus.OK);
+		if (u.isEmpty()) {
+			return new ResponseEntity<>("No User avaialable with name = " + name, HttpStatus.NOT_FOUND);
 		} else {
-			return new ResponseEntity<>("No User avaialable with name " + name, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(u, HttpStatus.OK);
 		}
 	}
 
 	// This is GetByEmail method for the API Request
 	@GetMapping(value = "/get/email")
-	public ResponseEntity<?> findByEmail(@RequestParam(name = "email") String email) {
+	public ResponseEntity<Object> findByEmail(@RequestParam(name = "email") String email) {
 		User u = userService.findByEmail(email);
-		if (u != null) {
-			return new ResponseEntity<User>(u, HttpStatus.OK);
+		if (u == null) {
+			return new ResponseEntity<>("No User avaialable with email id = " + email, HttpStatus.NOT_FOUND);
 		} else {
-			return new ResponseEntity<>("No User avaialable with email " + email, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(u, HttpStatus.OK);
 		}
 	}
 
 	// This is Generic Method for the API Request
 	@GetMapping(value = "/get/Byexample")
-	public ResponseEntity<?> getAllByExample(@RequestBody User user) {
+	public ResponseEntity<Object> getAllByExample(@RequestBody User user) {
 		List<User> u = userService.getAllByExample(user);
-		if (u.size() > 0) {
-			return new ResponseEntity<List<User>>(u, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>("No User avaialable!", HttpStatus.NOT_FOUND);
-		}
+		return new ResponseEntity<>(u, HttpStatus.OK);
 	}
 
 	// This is Get Count method for the API Request
 	@GetMapping(value = "/get/count")
-	public ResponseEntity<?> getCount() {
+	public ResponseEntity<Object> getCount() {
 		Long num = userService.getCount();
 		if (num != 0) {
-			return new ResponseEntity<Long>(num, HttpStatus.OK);
+			return new ResponseEntity<>("No User avaialable", HttpStatus.NOT_FOUND);
 		} else {
-			return new ResponseEntity<>("Users list is empty", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(num, HttpStatus.OK);
 		}
+
 	}
 
 }

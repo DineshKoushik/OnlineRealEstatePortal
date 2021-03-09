@@ -8,27 +8,27 @@ public class Buyer {
 
 	@Id
 	private String buyerId;
-	private String userId;
-	private String propertyId;
-	private String propertyType;
-	private Long numberOfAcres;
-	private Long cost;
-	private Location location;
+	private String sellerId;
+	private String pId;
+	private String ptype;
+	private Long noofAcres;
+	private Long propertyCost;
+	private Location propertyLocation;
 
 	public Buyer() {
 		super();
 	}
 
-	public Buyer(String buyerId, String userId, String propertyId, String propertyType, Long numberOfAcres, Long cost,
-			Location location) {
+	public Buyer(String buyerId, String sellerId, String pId, String ptype, Long noofAcres, Long propertyCost,
+			Location propertyLocation) {
 		super();
 		this.buyerId = buyerId;
-		this.userId = userId;
-		this.propertyId = propertyId;
-		this.propertyType = propertyType;
-		this.numberOfAcres = numberOfAcres;
-		this.cost = cost;
-		this.location = location;
+		this.sellerId = sellerId;
+		this.pId = pId;
+		this.ptype = ptype;
+		this.noofAcres = noofAcres;
+		this.propertyCost = propertyCost;
+		this.propertyLocation = propertyLocation;
 	}
 
 	public String getBuyerId() {
@@ -39,52 +39,52 @@ public class Buyer {
 		this.buyerId = buyerId;
 	}
 
-	public String getUserId() {
-		return userId;
+	public String getSellerId() {
+		return sellerId;
 	}
 
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setSellerId(String sellerId) {
+		this.sellerId = sellerId;
 	}
 
-	public String getPropertyId() {
-		return propertyId;
+	public String getpId() {
+		return pId;
 	}
 
-	public void setPropertyId(String propertyId) {
-		this.propertyId = propertyId;
+	public void setpId(String pId) {
+		this.pId = pId;
 	}
 
-	public String getPropertyType() {
-		return propertyType;
+	public String getPtype() {
+		return ptype;
 	}
 
-	public void setPropertyType(String propertyType) {
-		this.propertyType = propertyType;
+	public void setPtype(String ptype) {
+		this.ptype = ptype;
 	}
 
-	public Long getNumberOfAcres() {
-		return numberOfAcres;
+	public Long getNoofAcres() {
+		return noofAcres;
 	}
 
-	public void setNumberOfAcres(Long numberOfAcres) {
-		this.numberOfAcres = numberOfAcres;
+	public void setNoofAcres(Long noofAcres) {
+		this.noofAcres = noofAcres;
 	}
 
-	public Long getCost() {
-		return cost;
+	public Long getPropertyCost() {
+		return propertyCost;
 	}
 
-	public void setCost(Long cost) {
-		this.cost = cost;
+	public void setPropertyCost(Long propertyCost) {
+		this.propertyCost = propertyCost;
 	}
 
-	public Location getLocation() {
-		return location;
+	public Location getPropertyLocation() {
+		return propertyLocation;
 	}
 
-	public void setLocation(Location location) {
-		this.location = location;
+	public void setPropertyLocation(Location propertyLocation) {
+		this.propertyLocation = propertyLocation;
 	}
 
 }

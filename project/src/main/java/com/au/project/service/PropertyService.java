@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.au.project.model.Property;
-import com.au.project.Repository.PropertyRepository;
+import com.au.project.repository.PropertyRepository;
 
 @Service
 public class PropertyService {
@@ -14,7 +14,7 @@ public class PropertyService {
 	@Autowired
 	PropertyRepository propertyRepository;
 
-	public String PropertyAdd(String id, Property d) {
+	public String propertyAdd(String id, Property d) {
 		d.setUserId(id);
 		propertyRepository.insert(d);
 		return "New property is added";
@@ -32,8 +32,8 @@ public class PropertyService {
 		return propertyRepository.getByLocality(area);
 	}
 
-	public List<Property> Search(Long cost1, Long cost2, String area, String city, String propertyType) {
-		return propertyRepository.Search(cost1, cost2, area, city, propertyType);
+	public List<Property> search(Long cost1, Long cost2, String area, String city, String propertyType) {
+		return propertyRepository.search(cost1, cost2, area, city, propertyType);
 	}
 	
 	public void deleteProperty(String propertyId) {

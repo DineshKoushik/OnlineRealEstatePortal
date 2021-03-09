@@ -1,4 +1,4 @@
-package com.au.project.Repository;
+package com.au.project.repository;
 
 import java.util.List;
 
@@ -19,6 +19,6 @@ public interface PropertyRepository extends MongoRepository<Property, String>, Q
 	List<Property> getByLocality(String area);
 
 	@Query(value = "{'cost' : {$gte:?0, $lte:?1}, 'location.area':?2, 'location.city':?3, 'propertyType':?4}")
-	List<Property> Search(Long from, Long to, String area, String city, String propertyType);
+	List<Property> search(Long from, Long to, String area, String city, String propertyType);
 
 }

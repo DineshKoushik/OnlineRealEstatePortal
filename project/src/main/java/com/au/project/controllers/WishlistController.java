@@ -11,31 +11,27 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.au.project.model.Buyer;
-import com.au.project.service.BuyerService;
+import com.au.project.model.Wishlist;
+import com.au.project.service.WishlistService;
 
 @RestController
-@RequestMapping("/api")
-public class BuyerController {
-
+@RequestMapping("/api/wishlist")
+public class WishlistController {
+	
 	@Autowired
-	BuyerService buyerService;
-
-	@PostMapping(value = "/buy/{buyerId}/{propertyId}")
-	public ResponseEntity<String> buy(@PathVariable(name = "buyerId") String buyerId, @PathVariable(name = "propertyId") String propertyId) {
-		String p = buyerService.buy(buyerId, propertyId);
-		if (p != null) {
+	WishlistService wishlistService;
+	
+	@PostMapping(value = "/{userId}/{propertyId}")
+	public ResponseEntity<String> addToWishlist(@PathVariable(name = "userId") String userId, @PathVariable(name = "propertyId") String propertyId) {
+		String p = wishlistService.addToWishlist(userId, propertyId);
 			return new ResponseEntity<>(p, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>("No User Avaialable!", HttpStatus.NOT_FOUND);
-		}
 	}
 	
-	@GetMapping(value = "/buy/get")
+	@GetMapping(value = "/get")
 	public ResponseEntity<Object> getAllDetails() {
-		List<Buyer> b = buyerService.getAllDetails();
+		List<Wishlist> b = wishlistService.getAllDetails();
 		if (b.isEmpty()) {
-			return new ResponseEntity<>("No details found", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>("Wishlist is Empty!", HttpStatus.NOT_FOUND);
 		} else {
 			return new ResponseEntity<>(b, HttpStatus.OK);
 		}

@@ -1,5 +1,8 @@
 package com.au.project.model;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.data.annotation.Id;
@@ -9,6 +12,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Property {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "myseq")
+	@SequenceGenerator(name = "myseq", sequenceName = "MY_SEQ")
 	private String propertyId;
 	private String userId;
 	@NotNull(message = "propertyType cannot be null")
