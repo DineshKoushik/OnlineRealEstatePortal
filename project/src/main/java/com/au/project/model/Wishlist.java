@@ -7,6 +7,15 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Wishlist {
 
 	@Id
+	private String id;
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	private String userId;
 	private String wishPropertyId;
 

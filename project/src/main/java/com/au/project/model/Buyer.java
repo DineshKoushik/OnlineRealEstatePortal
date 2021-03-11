@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Buyer {
 
 	@Id
+	private String id;
 	private String buyerId;
 	private String sellerId;
 	private String pId;
@@ -29,6 +30,10 @@ public class Buyer {
 		this.noofAcres = noofAcres;
 		this.propertyCost = propertyCost;
 		this.propertyLocation = propertyLocation;
+	}
+	
+	public String getId() {
+		return id;
 	}
 
 	public String getBuyerId() {

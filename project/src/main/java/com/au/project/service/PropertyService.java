@@ -40,4 +40,8 @@ public class PropertyService {
 		propertyRepository.deleteById(propertyId);
 	}
 
+	public Property getById(String propertyId) {
+		return propertyRepository.getDetails(propertyId);
+	}
+
 }

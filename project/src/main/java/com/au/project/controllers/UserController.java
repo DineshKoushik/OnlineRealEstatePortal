@@ -14,10 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.au.project.model.Login;
@@ -65,32 +65,14 @@ public class UserController {
 	}
 
 	// This is GetByName method for the API Request
-	@GetMapping(value = "/get/name")
-	public ResponseEntity<Object> getByName(@RequestParam(name = "name") String name) {
-		List<User> u = userService.getByName(name);
-		if (u.isEmpty()) {
-			return new ResponseEntity<>("No User avaialable with name = " + name, HttpStatus.NOT_FOUND);
-		} else {
-			return new ResponseEntity<>(u, HttpStatus.OK);
-		}
-	}
-
-	// This is GetByEmail method for the API Request
-	@GetMapping(value = "/get/email")
-	public ResponseEntity<Object> findByEmail(@RequestParam(name = "email") String email) {
-		User u = userService.findByEmail(email);
+	@GetMapping(value = "/get/{userId}")
+	public ResponseEntity<Object> getById(@PathVariable(name = "userId") String userId) {
+		User u = userService.getById(userId);
 		if (u == null) {
-			return new ResponseEntity<>("No User avaialable with email id = " + email, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>("No User avaialable with id = " + userId, HttpStatus.NOT_FOUND);
 		} else {
 			return new ResponseEntity<>(u, HttpStatus.OK);
 		}
-	}
-
-	// This is Generic Method for the API Request
-	@GetMapping(value = "/get/Byexample")
-	public ResponseEntity<Object> getAllByExample(@RequestBody User user) {
-		List<User> u = userService.getAllByExample(user);
-		return new ResponseEntity<>(u, HttpStatus.OK);
 	}
 
 	// This is Get Count method for the API Request

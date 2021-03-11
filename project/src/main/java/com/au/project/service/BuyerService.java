@@ -58,4 +58,8 @@ public class BuyerService {
 		return buyerRepository.findAll();
 	}
 
+	public Buyer getById(String id) {
+		return buyerRepository.findDetails(id);
+	}
+
 }

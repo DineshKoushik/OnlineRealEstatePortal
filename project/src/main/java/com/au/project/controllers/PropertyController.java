@@ -27,7 +27,7 @@ public class PropertyController {
 	PropertyService propertyService;
 
 	// This is Property post method for the API Request
-	@PostMapping(value = "/post//{id}")
+	@PostMapping(value = "/post/{id}")
 	public ResponseEntity<String> propertyAdd(@PathVariable(name = "id") String id,
 			@Valid @NotNull @RequestBody Property d) {
 		try {
@@ -64,7 +64,7 @@ public class PropertyController {
 	}
 
 	// This is GetByLocality Method for the API Request
-	@GetMapping(value = "/get/{area}")
+	@GetMapping(value = "/getByArea/{area}")
 	public ResponseEntity<Object> getByLocality(@PathVariable("area") String area) {
 		List<Property> u = propertyService.getByLocality(area);
 		if (u.isEmpty()) {
@@ -87,6 +87,16 @@ public class PropertyController {
 			return new ResponseEntity<>(u, HttpStatus.OK);
 		}
 
+	}
+	
+	@GetMapping(value = "/getById/{propertyId}")
+	public ResponseEntity<Object> getById(@PathVariable(name = "propertyId") String propertyId) {
+		Property b = propertyService.getById(propertyId);
+		if (b == null) {
+			return new ResponseEntity<>("No details found", HttpStatus.NOT_FOUND);
+		} else {
+			return new ResponseEntity<>(b, HttpStatus.OK);
+		}
 	}
 
 }

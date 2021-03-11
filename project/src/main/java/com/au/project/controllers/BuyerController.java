@@ -40,5 +40,15 @@ public class BuyerController {
 			return new ResponseEntity<>(b, HttpStatus.OK);
 		}
 	}
+	
+	@GetMapping(value = "/buy/get/{id}")
+	public ResponseEntity<Object> getById(@PathVariable(name = "id") String id) {
+		Buyer b = buyerService.getById(id);
+		if (b == null) {
+			return new ResponseEntity<>("No details found", HttpStatus.NOT_FOUND);
+		} else {
+			return new ResponseEntity<>(b, HttpStatus.OK);
+		}
+	}
 
 }

@@ -29,4 +29,8 @@ public class WishlistService {
 		return wishlistRepository.findAll();
 	}
 
+	public Wishlist getById(String id) {
+		return wishlistRepository.getDetails(id);
+	}
+
 }

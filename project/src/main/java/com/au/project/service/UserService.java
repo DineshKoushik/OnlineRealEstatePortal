@@ -42,17 +42,12 @@ public class UserService {
 		return userRepository.findByName(name);
 	}
 
-	public User findByEmail(String email) {
-		return userRepository.findByEmail(email);
-	}
-
-	public List<User> getAllByExample(User user) {
-		Example<User> e = Example.of(user);
-		return userRepository.findAll(e);
-	}
-
 	public Long getCount() {
 		return userRepository.count();
+	}
+
+	public User getById(String userId) {
+		return userRepository.getDetails(userId);
 	}
 
 }

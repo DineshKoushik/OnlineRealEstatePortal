@@ -36,5 +36,15 @@ public class WishlistController {
 			return new ResponseEntity<>(b, HttpStatus.OK);
 		}
 	}
+	
+	@GetMapping(value = "/get/{id}")
+	public ResponseEntity<Object> getById(@PathVariable(name = "id") String id) {
+		Wishlist b = wishlistService.getById(id);
+		if (b == null) {
+			return new ResponseEntity<>("No details found", HttpStatus.NOT_FOUND);
+		} else {
+			return new ResponseEntity<>(b, HttpStatus.OK);
+		}
+	}
 
 }
